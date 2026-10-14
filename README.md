@@ -6,6 +6,8 @@ Live site after Pages is enabled: [https://h3llo0p3rator.github.io/balatro-seed-
 
 The original Cursor canvas is preserved in `balatro-seed-finder.canvas.tsx`.
 
+Joker card art is the official Balatro sprite atlas, the same sheet used by [Balatro HQ](https://balatrohq.com/jokers/). Balatro is © LocalThunk.
+
 ## Enable GitHub Pages
 
 The deploy workflow lives in `.github/workflows/deploy.yml` and publishes on every push to `main`.
