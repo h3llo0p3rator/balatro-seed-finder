@@ -279,11 +279,20 @@ select {
   transition: transform 0.16s ease, filter 0.16s ease;
 }
 
-.joker-art {
+.joker-sprite {
   display: block;
   width: 100%;
-  height: auto;
-  border-radius: 10px;
+  aspect-ratio: 71 / 95;
+  border-radius: 8px;
+  background-image: url("/jokers.webp");
+  background-repeat: no-repeat;
+  background-size: 1000% 1600%;
+  background-position: calc(var(--col) * -100%) calc(var(--row) * -100%);
+  image-rendering: pixelated;
+}
+
+.joker-sprite.missing {
+  background: #2a3336;
 }
 
 .joker-pick:hover .joker-card-wrap {
@@ -297,6 +306,11 @@ select {
     drop-shadow(0 0 0 3px var(--gold))
     drop-shadow(0 10px 0 rgba(0, 0, 0, 0.28));
 }
+
+.joker-pick.rarity-common .joker-name { color: var(--chips); }
+.joker-pick.rarity-uncommon .joker-name { color: var(--uncommon); }
+.joker-pick.rarity-rare .joker-name { color: var(--mult); }
+.joker-pick.rarity-legendary .joker-name { color: var(--legendary); }
 
 .joker-name {
   font-family: "Pixelify Sans", "Nunito", sans-serif;
