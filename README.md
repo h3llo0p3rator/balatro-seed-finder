@@ -1,5 +1,27 @@
-# balatro-seed-finder
+# Balatro seed finder
 
-Source for the [Balatro Seed Finder](https://cursor.com/canvas/store-e4d77684-32b1-4548-b452-f7ee964eaa1d/90bb4921-ffe4-45bd-8e8d-c912135701ec) canvas.
+A GitHub Pages site that searches Balatro 1.0.1+ shop, Buffoon pack, and The Soul queues (Red Deck, White Stake, completed profile) using the same LuaJIT streams the game does.
 
-The app lives in `balatro-seed-finder.canvas.tsx`. It searches Balatro 1.0.1+ shop, Buffoon pack, and The Soul queues (Red Deck, White Stake, completed profile) using the same LuaJIT streams the game does.
+Live site after Pages is enabled: [https://h3llo0p3rator.github.io/balatro-seed-finder/](https://h3llo0p3rator.github.io/balatro-seed-finder/)
+
+The original Cursor canvas is preserved in `balatro-seed-finder.canvas.tsx`.
+
+## Enable GitHub Pages
+
+The deploy workflow lives in `.github/workflows/deploy.yml` and publishes on every push to `main`.
+
+1. Merge this branch to `main`.
+2. In the repo, open Settings, then Pages.
+3. Under Build and deployment, set Source to GitHub Actions.
+
+The first deploy creates the `github-pages` environment. After that, the site is at `https://h3llo0p3rator.github.io/balatro-seed-finder/`.
+
+## Local development
+
+npm install
+npm run dev
+
+The Vite base path is `/balatro-seed-finder/`, so open `http://localhost:5173/balatro-seed-finder/`.
+
+npm run build
+npm run preview
