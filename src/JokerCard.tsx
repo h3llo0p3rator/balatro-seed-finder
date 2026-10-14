@@ -5,13 +5,13 @@ import { JOKER_SPRITES } from "./jokerSprites.ts";
 
 export const RARITY_BY_NAME = new Map(CATALOG.map((joker) => [joker.name, joker.rarity]));
 
-function spriteVars(name: string): { "--col": string; "--row": string } | null {
+function spriteVars(name: string): CSSProperties | null {
   const pos = JOKER_SPRITES[name];
   if (!pos) return null;
   return {
-    "--col": String(pos[0]),
-    "--row": String(pos[1]),
-  };
+    "--col": pos[0],
+    "--row": pos[1],
+  } as CSSProperties;
 }
 
 export function JokerPick({
@@ -40,7 +40,7 @@ export function JokerPick({
         {vars ? (
           <span
             className="joker-sprite"
-            style={vars as CSSProperties}
+            style={vars}
             role="img"
             aria-label={name}
           />

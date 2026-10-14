@@ -287,7 +287,9 @@ select {
   background-image: url("/jokers.webp");
   background-repeat: no-repeat;
   background-size: 1000% 1600%;
-  background-position: calc(var(--col) * -100%) calc(var(--row) * -100%);
+  /* Percent positions are relative to (container - image), so 0% is the first
+     cell and 100% is the last. Divide by columns-1 / rows-1. */
+  background-position: calc(var(--col) * 100% / 9) calc(var(--row) * 100% / 15);
   image-rendering: pixelated;
 }
 
