@@ -11,6 +11,7 @@ import {
   seedHasWanted,
 } from "./engine.ts";
 import type { SeedMatch } from "./engine.ts";
+import { JokerPick, RARITY_BY_NAME } from "./JokerCard.tsx";
 
 const RARITIES = ["All", "Common", "Uncommon", "Rare", "Legendary"] as const;
 
@@ -167,7 +168,10 @@ export default function App() {
     <main className="page">
       <header className="hero">
         <p className="eyebrow">Red Deck · White Stake</p>
-        <h1>Balatro seed finder</h1>
+        <h1>
+          <span>Balatro</span>
+          <small>seed finder</small>
+        </h1>
         <p className="lede">
           Pick the jokers you want. The finder walks Balatro 1.0.1+ shop, Buffoon pack, and The Soul
           queues using the same LuaJIT streams the game does.
@@ -211,14 +215,21 @@ export default function App() {
           ))}
         </div>
         {selected.length > 0 ? (
-          <div className="row">
+          <div className="selected-jokers">
             {selected.map((name) => (
-              <Pill key={name} active onClick={() => toggleJoker(name)}>
-                {name} ×
-              </Pill>
+              <JokerPick
+                key={name}
+                name={name}
+                rarity={RARITY_BY_NAME.get(name) ?? "Common"}
+                selected
+                removable
+                onClick={() => toggleJoker(name)}
+              />
             ))}
           </div>
-        ) : null}
+        ) : (
+          <p className="muted">Pick cards from the collection below.</p>
+        )}
         <div className="row filters">
           <input
             value={query}
@@ -234,13 +245,15 @@ export default function App() {
         </div>
         {visible.length > 0 ? (
           <div className="catalog">
-            <div className="row">
-              {visible.map((joker) => (
-                <Pill key={joker.name} active={selected.includes(joker.name)} onClick={() => toggleJoker(joker.name)}>
-                  {joker.name}
-                </Pill>
-              ))}
-            </div>
+            {visible.map((joker) => (
+              <JokerPick
+                key={joker.name}
+                name={joker.name}
+                rarity={joker.rarity}
+                selected={selected.includes(joker.name)}
+                onClick={() => toggleJoker(joker.name)}
+              />
+            ))}
           </div>
         ) : (
           <p className="muted">No jokers match that filter.</p>
