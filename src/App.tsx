@@ -79,7 +79,7 @@ export default function App() {
   const [shopSlots, setShopSlots] = useStoredState("shopSlots", "10");
   const [matchMode, setMatchMode] = useStoredState("matchMode", "all");
   const [maxSeeds, setMaxSeeds] = useStoredState("maxSeeds", "100000");
-  const [seedInput, setSeedInput] = useStoredState("seedInput", "DFRU5D52");
+  const [seedInput, setSeedInput] = useStoredState("inspectSeed", "");
   const [matches, setMatches] = useStoredState<SeedMatch[]>("matches", []);
   const [copied, setCopied] = useState<string | null>(null);
   const [searching, setSearching] = useState(false);
@@ -89,9 +89,9 @@ export default function App() {
 
   const anteN = Number(maxAnte);
   const slotsN = Number(shopSlots);
-  const seed = normalizeSeed(seedInput) || "DFRU5D52";
+  const seed = normalizeSeed(seedInput);
   const analysis = useMemo(
-    () => analyzeSeed(seed, anteN, slotsN, selected),
+    () => (seed ? analyzeSeed(seed, anteN, slotsN, selected) : null),
     [seed, anteN, slotsN, selected],
   );
 
@@ -105,7 +105,7 @@ export default function App() {
   }, [query, rarity]);
 
   const legendaryWanted = selected.some((name) => LEGENDARY.includes(name));
-  const hitCount = analysis.hits.filter((hit) => selected.includes(hit.name)).length;
+  const hitCount = analysis ? analysis.hits.filter((hit) => selected.includes(hit.name)).length : 0;
 
   function toggleJoker(name: string) {
     setSelected((prev) => (prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name]));
@@ -183,10 +183,12 @@ export default function App() {
           <strong>{selected.length}</strong>
           <span>Wanted jokers</span>
         </div>
-        <div className="stat">
-          <strong>{hitCount}</strong>
-          <span>Hits in {seed}</span>
-        </div>
+        {seed ? (
+          <div className="stat">
+            <strong>{hitCount}</strong>
+            <span>Hits in {seed}</span>
+          </div>
+        ) : null}
         {scanned > 0 ? (
           <div className="stat">
             <strong>{scanned.toLocaleString()}</strong>
@@ -366,9 +368,7 @@ export default function App() {
         <div className="inspect-head">
           <div>
             <h2>Inspect a seed</h2>
-            <p className="muted">
-              Paste a seed, or use <code>DFRU5D52</code> — first Buffoon pack is Foil Blueprint.
-            </p>
+            <p className="muted">Paste a seed to see packs and the shop queue.</p>
           </div>
           <input
             className="seed-input"
@@ -378,35 +378,39 @@ export default function App() {
             aria-label="Seed"
           />
         </div>
-        <article className="card">
-          <header>
-            <h3>{analysis.seed}</h3>
-            <span>Red Deck · White Stake</span>
-          </header>
-          {analysis.antes.map((ante) => (
-            <div key={ante.ante} className="ante">
-              <h4>Ante {ante.ante}</h4>
-              <div className="ante-grid">
-                <div>
-                  <p className="column-label">Packs</p>
-                  {ante.packs.map((pack, index) => (
-                    <p key={`${pack.name}-${index}`} className={pack.wanted ? "hit" : "muted"}>
-                      {pack.name}: {pack.cards.join(" · ")}
-                    </p>
-                  ))}
-                </div>
-                <div>
-                  <p className="column-label">Shop queue</p>
-                  {ante.shop.map((row, index) => (
-                    <p key={`${row.label}-${index}`} className={row.wanted ? "hit" : "muted"}>
-                      {row.label}: {row.text}
-                    </p>
-                  ))}
+        {analysis ? (
+          <article className="card">
+            <header>
+              <h3>{analysis.seed}</h3>
+              <span>Red Deck · White Stake</span>
+            </header>
+            {analysis.antes.map((ante) => (
+              <div key={ante.ante} className="ante">
+                <h4>Ante {ante.ante}</h4>
+                <div className="ante-grid">
+                  <div>
+                    <p className="column-label">Packs</p>
+                    {ante.packs.map((pack, index) => (
+                      <p key={`${pack.name}-${index}`} className={pack.wanted ? "hit" : "muted"}>
+                        {pack.name}: {pack.cards.join(" · ")}
+                      </p>
+                    ))}
+                  </div>
+                  <div>
+                    <p className="column-label">Shop queue</p>
+                    {ante.shop.map((row, index) => (
+                      <p key={`${row.label}-${index}`} className={row.wanted ? "hit" : "muted"}>
+                        {row.label}: {row.text}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </article>
+            ))}
+          </article>
+        ) : (
+          <p className="muted inspect-empty">No seed yet. Type one above, or click Analyze on a match.</p>
+        )}
       </section>
 
       <aside className="callout">
