@@ -3,7 +3,6 @@ import type { Dispatch, ReactNode, SetStateAction } from "react";
 import {
   CATALOG,
   LEGENDARY,
-  PRESETS,
   analyzeSeed,
   describeHits,
   normalizeSeed,
@@ -204,17 +203,6 @@ export default function App() {
 
       <section className="panel">
         <h2>Wanted jokers</h2>
-        <div className="row">
-          {PRESETS.map((preset) => (
-            <Pill
-              key={preset.label}
-              active={preset.names.every((name) => selected.includes(name)) && selected.length === preset.names.length}
-              onClick={() => setSelected(preset.names)}
-            >
-              {preset.label}
-            </Pill>
-          ))}
-        </div>
         {selected.length > 0 ? (
           <div className="selected-jokers">
             {selected.map((name) => (
@@ -411,16 +399,6 @@ export default function App() {
           <p className="muted inspect-empty">No seed yet. Type one above, or click Analyze on a match.</p>
         )}
       </section>
-
-      <aside className="callout">
-        <strong>What this does and does not simulate</strong>
-        <p>
-          Shop joker slots, Buffoon packs, editions, and The Soul to legendary are generated from the
-          real seed streams. Consumable names, playing-card packs, tags, Judgement, and already-bought
-          lockouts are not applied — queues are the natural offer order if you have not already taken
-          that joker. Confirm anything important in-game before a serious run.
-        </p>
-      </aside>
     </main>
   );
 }
