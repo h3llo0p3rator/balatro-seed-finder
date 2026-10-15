@@ -281,6 +281,7 @@ select {
 
 .joker-sprite {
   display: block;
+  position: relative;
   width: 100%;
   aspect-ratio: 71 / 95;
   border-radius: 8px;
@@ -291,6 +292,19 @@ select {
      cell and 100% is the last. Divide by columns-1 / rows-1. */
   background-position: calc(var(--col) * 100% / 9) calc(var(--row) * 100% / 15);
   image-rendering: pixelated;
+  overflow: hidden;
+}
+
+.joker-soul {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background-image: url("/jokers.webp");
+  background-repeat: no-repeat;
+  background-size: 1000% 1600%;
+  background-position: calc(var(--soul-col) * 100% / 9) calc(var(--soul-row) * 100% / 15);
+  image-rendering: pixelated;
+  pointer-events: none;
 }
 
 .joker-sprite.missing {
