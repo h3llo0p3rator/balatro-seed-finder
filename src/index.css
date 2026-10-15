@@ -67,15 +67,6 @@ select {
   margin: 0 0 8px;
 }
 
-.eyebrow {
-  margin: 0 0 8px;
-  color: var(--gold);
-  font-family: "Pixelify Sans", "Nunito", sans-serif;
-  font-size: 13px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
 .hero h1 {
   display: grid;
   gap: 4px;
