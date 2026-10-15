@@ -416,6 +416,10 @@ td {
   margin-bottom: 14px;
 }
 
+.inspect-empty {
+  padding: 8px 2px 4px;
+}
+
 .card {
   padding: 0;
 }
