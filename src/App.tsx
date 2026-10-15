@@ -167,7 +167,6 @@ export default function App() {
   return (
     <main className="page">
       <header className="hero">
-        <p className="eyebrow">Red Deck · White Stake</p>
         <h1>
           <span>Balatro</span>
           <small>seed finder</small>
