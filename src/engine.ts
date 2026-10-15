@@ -60,14 +60,6 @@ const PACKS = [
   { name: "Jumbo Spectral Pack", kind: "spectral", size: 4, weight: 0.3 },
   { name: "Mega Spectral Pack", kind: "spectral", size: 4, weight: 0.07 },
 ];
-export const PRESETS: { label: string; names: string[] }[] = [
-  { label: "Copy", names: ["Blueprint", "Brainstorm"] },
-  { label: "Baron / Mime", names: ["Baron", "Mime"] },
-  { label: "Photochad", names: ["Photograph", "Hanging Chad"] },
-  { label: "Perkeo", names: ["Perkeo"] },
-  { label: "Triboulet", names: ["Triboulet"] },
-  { label: "Foil Blueprint", names: ["Blueprint"] },
-];
 const SEED_CHARS = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 export const CATALOG: { name: string; rarity: Rarity }[] = [
   ...COMMON.map((name) => ({ name, rarity: "Common" as const })),
