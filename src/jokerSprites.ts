@@ -1,3 +1,12 @@
+/** Character overlay for legendary jokers (same atlas cell, one row below the card back). */
+export const JOKER_SOUL_SPRITES: Record<string, readonly [number, number]> = {
+  Canio: [3, 9],
+  Triboulet: [4, 9],
+  Yorick: [5, 9],
+  Chicot: [6, 9],
+  Perkeo: [7, 9],
+};
+
 export const JOKER_SPRITES: Record<string, readonly [number, number]> = {
   "Joker": [0, 0],
   "Chaos the Clown": [1, 0],

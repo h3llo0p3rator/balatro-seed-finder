@@ -1,13 +1,17 @@
 import type { CSSProperties } from "react";
 import { CATALOG } from "./engine.ts";
 import type { Rarity } from "./engine.ts";
-import { JOKER_SPRITES } from "./jokerSprites.ts";
+import { JOKER_SOUL_SPRITES, JOKER_SPRITES } from "./jokerSprites.ts";
 
 export const RARITY_BY_NAME = new Map(CATALOG.map((joker) => [joker.name, joker.rarity]));
 
-function spriteVars(name: string): CSSProperties | null {
-  const pos = JOKER_SPRITES[name];
-  if (!pos) return null;
+function spriteVars(pos: readonly [number, number], kind: "card" | "soul"): CSSProperties {
+  if (kind === "soul") {
+    return {
+      "--soul-col": pos[0],
+      "--soul-row": pos[1],
+    } as CSSProperties;
+  }
   return {
     "--col": pos[0],
     "--row": pos[1],
@@ -27,7 +31,8 @@ export function JokerPick({
   removable?: boolean;
   onClick: () => void;
 }) {
-  const vars = spriteVars(name);
+  const pos = JOKER_SPRITES[name];
+  const soul = JOKER_SOUL_SPRITES[name];
 
   return (
     <button
@@ -37,13 +42,10 @@ export function JokerPick({
       aria-pressed={selected}
     >
       <span className="joker-card-wrap">
-        {vars ? (
-          <span
-            className="joker-sprite"
-            style={vars}
-            role="img"
-            aria-label={name}
-          />
+        {pos ? (
+          <span className="joker-sprite" style={spriteVars(pos, "card")} role="img" aria-label={name}>
+            {soul ? <span className="joker-soul" style={spriteVars(soul, "soul")} /> : null}
+          </span>
         ) : (
           <span className="joker-sprite missing" role="img" aria-label={name} />
         )}
